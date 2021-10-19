@@ -1,6 +1,6 @@
 import { faGithub, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
@@ -8,10 +8,12 @@ import useAuth from '../../Hooks/useAuth';
 const Login = () => {
     const googleIcon = <FontAwesomeIcon icon={faGoogle}></FontAwesomeIcon>
     const githubIcon = <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon>
-    const { error, setError, setUser, signInUsingGoogle, signInUsingGithub, loginWithEmail } = useAuth();
+    const { error, setError, signInUsingGoogle, signInUsingGithub, loginWithEmail } = useAuth();
     const location = useLocation()
     const history = useHistory();
     const redirect_url = location.state?.from || '/home'
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const handleLogin = () => {
         signInUsingGoogle()
@@ -33,17 +35,22 @@ const Login = () => {
             })
     }
 
-    const handleLoginEmail = () => {
-        loginWithEmail()
-            .then(result => {
-                history.push(redirect_url)
-                setUser(result.user)
-            })
-            .catch(error => {
-                setError(error.message)
-            })
+    const emailField = (e) => {
+        setEmail(e.target.value)
     }
-
+    const passField = (e) => {
+        setPassword(e.target.value)
+    }
+    // const handleLoginEmail = (email, password) => {
+    //     loginWithEmail(email, password)
+    //         .then(result => {
+    //             console.log(result);
+    //             history.push('/')
+    //         })
+    //         .catch(error => {
+    //             setError(error.message)
+    //         })
+    // }
 
     return (
         <div className='container text-center py-5  w-50'>
@@ -54,18 +61,18 @@ const Login = () => {
                 <Form className='my-5 text-start'>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control required type="email" placeholder="Enter email" />
+                        <Form.Control required type="email" placeholder="Enter email" onBlur={emailField} />
 
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control required type="password" placeholder="Password" />
+                        <Form.Control required type="password" placeholder="Password" onBlur={passField} />
                     </Form.Group>
 
 
                 </Form>
-                <button onClick={() => { handleLoginEmail() }} className='btn btn-primary px-5 my-4'>Login</button><br />
+                <button onClick={() => { loginWithEmail(email, password) }} className='btn btn-primary px-5 my-4'>Login</button><br />
                 <p className=' text-muted'> ----------  Or Login With Email  ----------</p>
                 <button className='bg-success text-white fw-bold px-4 py-2 mx-3 rounded' onClick={handleLogin}> <span>{googleIcon}</span> Google+</button>
                 <button className='bg-secondary mx-3 text-white fw-bold px-4 py-2 rounded mb-4' onClick={handleLoginGit}> <span>{githubIcon}</span> Github</button>

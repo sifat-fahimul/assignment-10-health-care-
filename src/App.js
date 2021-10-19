@@ -11,6 +11,8 @@ import Login from './pages/Login/Login';
 import AuthProvider from './context/AuthProvider';
 import Register from './pages/Register/Register';
 import PrivetRoute from './pages/PrivetRoute/PrivetRoute';
+import NotFound from './pages/NotFound/NotFound';
+import ServiceItem from './pages/Services/ServiceItem/ServiceItem';
 
 function App() {
   return (
@@ -28,6 +30,9 @@ function App() {
             <Route path='/service'>
               <Services></Services>
             </Route>
+            <PrivetRoute path='/services/:serviceId'>
+              <ServiceItem></ServiceItem>
+            </PrivetRoute>
             <Route path='/about'>
               <About></About>
             </Route>
@@ -39,6 +44,9 @@ function App() {
             </Route>
             <Route path='/register'>
               <Register></Register>
+            </Route>
+            <Route path='*'>
+              <NotFound></NotFound>
             </Route>
           </Switch>
           <Footer></Footer>

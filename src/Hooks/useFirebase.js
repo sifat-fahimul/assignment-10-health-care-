@@ -1,4 +1,4 @@
-import { getAuth, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, signInWithEmailAndPassword } from "firebase/auth";
 import { useEffect, useState } from "react";
 import initializeAuthentication from "../firebase/firebase.init";
 
@@ -10,7 +10,6 @@ initializeAuthentication();
 
 const useFirebase = () => {
     const [user, setUser] = useState({});
-    console.log(user);
     const [error, setError] = useState('')
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
@@ -34,14 +33,23 @@ const useFirebase = () => {
         //     setError(error.message)
         // })
     }
+    const registerWithEmail = (email, password) => {
+        createUserWithEmailAndPassword(auth, email, password)
+            .then(result => {
+                setUser(result.user)
+            })
+            .catch(error => {
+                setError(error.message)
+            })
+    }
     const loginWithEmail = (email, password) => {
-        return createUserWithEmailAndPassword(auth, email, password)  //email, password
-        // .then(result => {
-        //     setUser(result.user)
-        // })
-        // .catch(error => {
-        //     setError(error.message)
-        // })
+        signInWithEmailAndPassword(auth, email, password)  //email, password
+            .then(result => {
+                setUser(result.user)
+            })
+            .catch(error => {
+                setError(error.message)
+            })
     }
     const userProfile = (name) => {
         updateProfile(auth.currentUser, {
@@ -71,6 +79,7 @@ const useFirebase = () => {
         signInUsingGoogle,
         signInUsingGithub,
         logOut,
+        registerWithEmail,
         loginWithEmail,
         userProfile,
         user,
