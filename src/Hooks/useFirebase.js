@@ -1,4 +1,4 @@
-import { getAuth, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "firebase/auth";
 import { useEffect, useState } from "react";
 import initializeAuthentication from "../firebase/firebase.init";
 
@@ -10,34 +10,44 @@ initializeAuthentication();
 
 const useFirebase = () => {
     const [user, setUser] = useState({});
+    console.log(user);
     const [error, setError] = useState('')
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
     const auth = getAuth();
 
     const signInUsingGoogle = () => {
-        signInWithPopup(auth, googleProvider)
-            .then(result => {
-                setUser(result.user)
-            })
-            .catch(error => {
-                setError(error.message)
-            })
+        return signInWithPopup(auth, googleProvider)
+        // .then(result => {
+        //     setUser(result.user)
+        // })
+        // .catch(error => {
+        //     setError(error.message)
+        // })
     }
     const signInUsingGithub = () => {
-        signInWithPopup(auth, githubProvider)
-            .then(result => {
-                setUser(result.user)
-            })
-            .catch(error => {
-                setError(error.message)
-            })
+        return signInWithPopup(auth, githubProvider)
+        // .then(result => {
+        //     setUser(result.user)
+        // })
+        // .catch(error => {
+        //     setError(error.message)
+        // })
     }
-    const loginWithEmail = () => {
-        createUserWithEmailAndPassword(auth,)  //email, password
-            .then(result => {
-                setUser(result.user)
-            })
+    const loginWithEmail = (email, password) => {
+        return createUserWithEmailAndPassword(auth, email, password)  //email, password
+        // .then(result => {
+        //     setUser(result.user)
+        // })
+        // .catch(error => {
+        //     setError(error.message)
+        // })
+    }
+    const userProfile = (name) => {
+        updateProfile(auth.currentUser, {
+            displayName: name
+        })
+            .then(result => { })
             .catch(error => {
                 setError(error.message)
             })
@@ -55,15 +65,18 @@ const useFirebase = () => {
                 setUser(user)
             }
         })
-    }, [])
+    }, [auth])
 
     return {
         signInUsingGoogle,
         signInUsingGithub,
         logOut,
         loginWithEmail,
+        userProfile,
         user,
-        error
+        setUser,
+        error,
+        setError
     }
 }
 export default useFirebase;

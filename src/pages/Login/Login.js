@@ -2,19 +2,55 @@ import { faGithub, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 
 const Login = () => {
     const googleIcon = <FontAwesomeIcon icon={faGoogle}></FontAwesomeIcon>
     const githubIcon = <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon>
-    const { error, signInUsingGoogle, signInUsingGithub, loginWithEmail } = useAuth();
+    const { error, setError, setUser, signInUsingGoogle, signInUsingGithub, loginWithEmail } = useAuth();
+    const location = useLocation()
+    const history = useHistory();
+    const redirect_url = location.state?.from || '/home'
+
+    const handleLogin = () => {
+        signInUsingGoogle()
+            .then(result => {
+                history.push(redirect_url)
+            })
+            .catch(error => {
+                setError(error.message)
+            })
+    }
+
+    const handleLoginGit = () => {
+        signInUsingGithub()
+            .then(result => {
+                history.push(redirect_url)
+            })
+            .catch(error => {
+                setError(error.message)
+            })
+    }
+
+    const handleLoginEmail = () => {
+        loginWithEmail()
+            .then(result => {
+                history.push(redirect_url)
+                setUser(result.user)
+            })
+            .catch(error => {
+                setError(error.message)
+            })
+    }
+
+
     return (
         <div className='container text-center py-5  w-50'>
             <div className="border p-4 ">
                 <h1>Login</h1>
-                <p>{error}</p>
                 <h5>Login into your pages account</h5>
+                <p className='text-danger'>{error}</p>
                 <Form className='my-5 text-start'>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
@@ -29,10 +65,10 @@ const Login = () => {
 
 
                 </Form>
-                <button onClick={loginWithEmail} className='btn btn-primary px-5 my-4'>Login</button><br />
+                <button onClick={() => { handleLoginEmail() }} className='btn btn-primary px-5 my-4'>Login</button><br />
                 <p className=' text-muted'> ----------  Or Login With Email  ----------</p>
-                <button className='bg-success text-white fw-bold px-4 py-2 mx-3 rounded' onClick={signInUsingGoogle}> <span>{googleIcon}</span> Google+</button>
-                <button className='bg-secondary mx-3 text-white fw-bold px-4 py-2 rounded mb-4' onClick={signInUsingGithub}> <span>{githubIcon}</span> Github</button>
+                <button className='bg-success text-white fw-bold px-4 py-2 mx-3 rounded' onClick={handleLogin}> <span>{googleIcon}</span> Google+</button>
+                <button className='bg-secondary mx-3 text-white fw-bold px-4 py-2 rounded mb-4' onClick={handleLoginGit}> <span>{githubIcon}</span> Github</button>
                 <p>Don't have an account ? <Link className='text-decoration-none' to='/register'>Register</Link></p>
             </div>
 

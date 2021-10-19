@@ -10,6 +10,7 @@ import Contact from './pages/Contact/Contact';
 import Login from './pages/Login/Login';
 import AuthProvider from './context/AuthProvider';
 import Register from './pages/Register/Register';
+import PrivetRoute from './pages/PrivetRoute/PrivetRoute';
 
 function App() {
   return (
@@ -30,9 +31,9 @@ function App() {
             <Route path='/about'>
               <About></About>
             </Route>
-            <Route path='/contact'>
+            <PrivetRoute path='/contact'>
               <Contact></Contact>
-            </Route>
+            </PrivetRoute>
             <Route path='/login'>
               <Login></Login>
             </Route>
