@@ -10,14 +10,14 @@ const Home = () => {
             <Banner></Banner>
             <div className="container my-5">
                 <div className="row">
-                    <div className="col-7">
+                    <div className="col-lg-7 col-md-6 col-12">
                         <h3>SERVICES AT ONE GLANCE</h3>
                         <p className='custom-border'></p>
                         <h1 className='display-2 fw-bold'>Haw can we</h1>
                         <h1 className='text-danger display-2 fw-bold'>Help you?</h1>
                         <p>Credibly innovate granular internal or “organic“ sources whereas high standards in web-readiness. Energistically scale future-proof core competencies vis-a-vis impactful experiences. Dramatically synthesize integrated schemas with optimal networks.</p>
                     </div>
-                    <div className="col-5">
+                    <div className="col-lg-5 col-md-6 col-12">
                         <div className='border border-5 p-5'>
                             <h5>CONTACT WITHIN MINUTES</h5>
                             <p className='custom-border'></p>

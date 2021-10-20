@@ -1,3 +1,5 @@
+import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Container, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -6,6 +8,7 @@ import useAuth from '../../../Hooks/useAuth';
 
 const Header = () => {
     const { user, logOut } = useAuth();
+    const userIcon = <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
     return (
         <div>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -19,7 +22,7 @@ const Header = () => {
                         <NavHashLink className='text-success fw-bold mx-3 text-decoration-none' to="/about">About</NavHashLink>
                         <NavHashLink className='text-success fw-bold mx-3 text-decoration-none' to="/contact">Contact</NavHashLink>
                         <Navbar.Text>
-                            <span className='text-white'>Signed in as : {user?.displayName}</span>
+                            <span className='text-white'><span className='text-danger mx-2'>{userIcon}</span> {user.displayName}</span>
                         </Navbar.Text>
                         {user.email ? <button onClick={logOut} className='btn btn-danger rounded-pill text-white px-4 ms-2'>Log Out</button> : <div>
                             <Link to='/login'>

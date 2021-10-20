@@ -11,6 +11,7 @@ initializeAuthentication();
 const useFirebase = () => {
     const [user, setUser] = useState({});
     const [error, setError] = useState('')
+    const [name, setName] = useState('')
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
     const auth = getAuth();
@@ -37,6 +38,7 @@ const useFirebase = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then(result => {
                 setUser(result.user)
+                userProfile();
             })
             .catch(error => {
                 setError(error.message)
@@ -51,7 +53,7 @@ const useFirebase = () => {
                 setError(error.message)
             })
     }
-    const userProfile = (name) => {
+    const userProfile = () => {
         updateProfile(auth.currentUser, {
             displayName: name
         })
@@ -85,7 +87,8 @@ const useFirebase = () => {
         user,
         setUser,
         error,
-        setError
+        setError,
+        setName
     }
 }
 export default useFirebase;

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
-import { Link, } from 'react-router-dom';  // useLocation, useHistory 
+import { Link, useHistory } from 'react-router-dom';  // useLocation, useHistory 
 import useAuth from '../../Hooks/useAuth';
 
 const Register = () => {
-    const { error, registerWithEmail } = useAuth();
+    const { error, setName, registerWithEmail } = useAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const history = useHistory()
     // const [name, setName] = useState("");
 
     const emailField = (e) => {
@@ -16,9 +17,14 @@ const Register = () => {
         setPassword(e.target.value)
     }
     const nameField = (e) => {
-        // setName(e.target.value)
+        setName(e.target.value)
     }
 
+    const handleRegister = () => {
+        registerWithEmail(email, password);
+        history.push('/')
+
+    }
 
 
 
@@ -47,7 +53,7 @@ const Register = () => {
                         <Form.Control required type="password" placeholder="Password" onBlur={passField} />
                     </Form.Group>
                 </Form>
-                <button type="submit" onClick={() => { registerWithEmail(email, password) }} className='btn btn-primary px-5 my-4' >Register</button>
+                <button type="submit" onClick={handleRegister} className='btn btn-primary px-5 my-4' >Register</button>
 
                 <p>Have an account ? <Link className='text-decoration-none' to='/login'>Login</Link></p>
             </div>

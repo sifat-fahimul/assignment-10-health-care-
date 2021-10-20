@@ -41,16 +41,11 @@ const Login = () => {
     const passField = (e) => {
         setPassword(e.target.value)
     }
-    // const handleLoginEmail = (email, password) => {
-    //     loginWithEmail(email, password)
-    //         .then(result => {
-    //             console.log(result);
-    //             history.push('/')
-    //         })
-    //         .catch(error => {
-    //             setError(error.message)
-    //         })
-    // }
+    const handleLoginEmail = () => {
+        loginWithEmail(email, password)
+        history.push('/')
+
+    }
 
     return (
         <div className='container text-center py-5  w-50'>
@@ -72,7 +67,7 @@ const Login = () => {
 
 
                 </Form>
-                <button onClick={() => { loginWithEmail(email, password) }} className='btn btn-primary px-5 my-4'>Login</button><br />
+                <button onClick={handleLoginEmail} className='btn btn-primary px-5 my-4'>Login</button><br />
                 <p className=' text-muted'> ----------  Or Login With Email  ----------</p>
                 <button className='bg-success text-white fw-bold px-4 py-2 mx-3 rounded' onClick={handleLogin}> <span>{googleIcon}</span> Google+</button>
                 <button className='bg-secondary mx-3 text-white fw-bold px-4 py-2 rounded mb-4' onClick={handleLoginGit}> <span>{githubIcon}</span> Github</button>
