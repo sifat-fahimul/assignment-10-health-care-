@@ -1,0 +1,13 @@
+[debug] [2021-10-20T16:35:31.592Z] ----------------------------------------------------------------------
+[debug] [2021-10-20T16:35:31.595Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\IT Park\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2021-10-20T16:35:31.595Z] CLI Version:   9.20.0
+[debug] [2021-10-20T16:35:31.595Z] Platform:      win32
+[debug] [2021-10-20T16:35:31.595Z] Node Version:  v14.17.1
+[debug] [2021-10-20T16:35:31.598Z] Time:          Wed Oct 20 2021 22:35:31 GMT+0600 (Bangladesh Standard Time)
+[debug] [2021-10-20T16:35:31.599Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-10-20T16:35:31.661Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-10-20T16:35:31.661Z] > authorizing via signed-in user (mdsifatfeni@gmail.com)
+[debug] [2021-10-20T16:35:31.662Z] [iam] checking project health-caree for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2021-10-20T16:35:31.664Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/health-caree:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}

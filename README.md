@@ -2,6 +2,9 @@
 
 firebase live site link [visit App](https://health-caree.web.app/home).
 
+
+netlify live site link [visit App](https://health-care-31.netlify.app/).
+
 ## About this site
 -   this is a medical website may you like this.
 
